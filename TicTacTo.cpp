@@ -11,9 +11,17 @@ using namespace std;
 
 int main()
 {
-	Board *A = new Board();
-
+	Board * A = new Board();
 	A->showBoard();
+
+	A->choosePosition(2, 'X');
+
+	A->choosePosition(1, 'X');
+
+	A->choosePosition(3, 'X');
+	A->showBoard();
+	bool answer = A->checkWin();
+	cout << std::boolalpha << (answer) << endl;
 	return 0;
 }
 
