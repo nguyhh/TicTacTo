@@ -5,23 +5,43 @@
 #include <iostream>
 #include <string>
 #include "Board.h"
+#include "Player.h"
 
 using namespace std;
 
 
+
 int main()
 {
-	Board * A = new Board();
-	A->showBoard();
+	Player* players[2];
+	Player* player1;
+	Player* player2;
+	string name1;
+	string name2;
+	cout << "Welcome to Tic-Tac-Toe" << endl;
+	cout << "What is your name Player X?"<< endl;
+	std::cin >> name1;
+	players[0] = player1 = new Player(name1, 'X');
 
-	A->choosePosition(2, 'X');
+	cout << "What is your name Player 2? " << endl;
+	std::cin >> name2;
+	players[1] = player2 = new Player(name2, 'O');
 
-	A->choosePosition(1, 'X');
+	int playerTurn = 0;
 
-	A->choosePosition(3, 'X');
-	A->showBoard();
-	bool answer = A->checkWin();
-	cout << std::boolalpha << (answer) << endl;
+	Board* board = new Board();
+
+	do
+	{
+		board->showInstruction(players[playerTurn]);
+		playerTurn = (playerTurn + 1) % 2;
+
+
+	} while (!(board->checkWin()));
+
+	cout << "Game Over!" + *(players[playerTurn]->playerName) + " won!" << endl;
+
+
 	return 0;
 }
 

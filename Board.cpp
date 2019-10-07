@@ -19,17 +19,23 @@ Board::Board(){
 	//cout << positions[0] << endl;
 }
 
-void Board::showInstruction() {
-	cout << "Choose your position" << endl;
-	cout << " 1 | 2 | 3 " << endl;
-	cout << "---+---+---" << endl;
-	cout << " 4 | 5 | 6 " << endl;
-	cout << "---+---+---" << endl;
-	cout << " 7 | 8 | 9 " << endl;
-
+void Board::showInstruction(Player* whoPlaying) {
 	int inputPosition;
-	cin >> inputPosition;
-	choosePosition(inputPosition, 'X');
+	do
+	{
+		cout << *whoPlaying->playerName + "! Choose your position" << endl;
+		cout << " 1 | 2 | 3 " << endl;
+		cout << "---+---+---" << endl;
+		cout << " 4 | 5 | 6 " << endl;
+		cout << "---+---+---" << endl;
+		cout << " 7 | 8 | 9 " << endl;
+
+
+		cin >> inputPosition;
+
+	} while (!(*positions[inputPosition-1]==' '));
+
+	choosePosition(inputPosition, *whoPlaying->playerSymbol);
 }
 
 void Board::showBoard() {
@@ -45,6 +51,7 @@ void Board::showBoard() {
 void Board::choosePosition(int position, char player) {
 
 	*(positions[position - 1]) = player;
+	showBoard();
 }
 
 bool Board::checkWin() {

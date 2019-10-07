@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <string>
+#include "Player.h"
 using namespace std;
 
 
@@ -15,7 +16,7 @@ public:
 	Board();
 	~Board();
 
-	void showInstruction();
+	void showInstruction(Player*);
 	void showBoard();
 	void choosePosition(int, char);
 	bool checkWin();
