@@ -2,38 +2,55 @@
 
 #include <iostream>
 #include <string>
-#include "Player.h"
-#include "Board.h"
+#include <exception>
 #include "Game.h"
 
 using namespace std;
 
+
 Game::Game() {
 	board = new Board();
+	playerTurn = 0;
+
+	string name1;
+	string name2;
 	cout << "Welcome to Tic-Tac-Toe" << endl;
 
-	string inputName1;
-	string inputName2;
+	try
+	{
+		cout << "What is your name Player X?" << endl;
+		cin >> name1;
+		cout << "What is your name Player 2? " << endl;
+		cin >> name2;
 
-	cout << "Who is player X?" << endl;
-	cin >> inputName1;
-	player1 = new Player(inputName1, 'X');
+	}
+	catch (const std::exception&)
+	{
+		cout << "Invalid name!!! Game will exit..." << endl;
+		exit(0);
+	}
 
-	cout << "Who is player O?" << endl;
-	cin >> inputName2;
-	player2 = new Player(inputName2, 'O');
+	players[0] = player1 = new Player(name1, 'X');//initialize player 1
+	players[1] = player2 = new Player(name2, 'O');//initialize player 2
+
 
 }
-//Game::Game( Player* p1, Player* p2) {
-//	player1 = p1;
-//	player2 = p2;
-//	this->board = board;
-//}
 
+Game::~Game() {};
+
+//Start the game process
 void Game::startGame() {
 
+	do
+	{
+		board->showInstruction(players[playerTurn]);
+
+		playerTurn = (playerTurn + 1) % 2;//Alternate players
 
 
+	} while (!(board->checkWin()));//Continue until someone wins
+
+	cout << "Game Over!" + *(players[playerTurn]->playerName) + " won!" << endl;
 
 
 }

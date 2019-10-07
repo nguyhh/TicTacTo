@@ -4,8 +4,7 @@
 
 #include <iostream>
 #include <string>
-#include "Board.h"
-#include "Player.h"
+#include "Game.h"
 
 using namespace std;
 
@@ -13,34 +12,8 @@ using namespace std;
 
 int main()
 {
-	Player* players[2];
-	Player* player1;
-	Player* player2;
-	string name1;
-	string name2;
-	cout << "Welcome to Tic-Tac-Toe" << endl;
-	cout << "What is your name Player X?"<< endl;
-	std::cin >> name1;
-	players[0] = player1 = new Player(name1, 'X');
-
-	cout << "What is your name Player 2? " << endl;
-	std::cin >> name2;
-	players[1] = player2 = new Player(name2, 'O');
-
-	int playerTurn = 0;
-
-	Board* board = new Board();
-
-	do
-	{
-		board->showInstruction(players[playerTurn]);
-		playerTurn = (playerTurn + 1) % 2;
-
-
-	} while (!(board->checkWin()));
-
-	cout << "Game Over!" + *(players[playerTurn]->playerName) + " won!" << endl;
-
+	Game* newGame = new Game();
+	newGame->startGame();
 
 	return 0;
 }

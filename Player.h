@@ -10,7 +10,6 @@ public:
 	string* playerName;
 	char* playerSymbol;
 
-
 	Player(string, char);
 	~Player();
 

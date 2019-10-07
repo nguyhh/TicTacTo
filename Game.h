@@ -8,14 +8,18 @@
 
 using namespace std;
 
+
 class Game {
+
 public:
+	Player* players[2];
 	Player* player1;
 	Player* player2;
+	int playerTurn;
 	Board* board;
 
 	Game();
-	//Game(Player*, Player*);
+	~Game();
 	void startGame();
 
 };

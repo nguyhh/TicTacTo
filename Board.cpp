@@ -5,6 +5,13 @@
 
 using namespace std;
 
+struct InputException : public std::exception {
+	const char* what() const throw () {
+		return "You have to choose between 1 and 9!";
+	};
+
+};
+
 Board::Board(){
 	positions[0] = upLeft = new char(' ');
 	positions[1] = upMiddle = new char(' ');
@@ -16,28 +23,49 @@ Board::Board(){
 	positions[7] = bottomMid = new char(' ');
 	positions[8] = bottomRight = new char(' ');
 	
-	//cout << positions[0] << endl;
 }
 
+Board::~Board() {};
+
+//Show the instructions and let player choose position
 void Board::showInstruction(Player* whoPlaying) {
 	int inputPosition;
 	do
 	{
-		cout << *whoPlaying->playerName + "! Choose your position" << endl;
-		cout << " 1 | 2 | 3 " << endl;
-		cout << "---+---+---" << endl;
-		cout << " 4 | 5 | 6 " << endl;
-		cout << "---+---+---" << endl;
-		cout << " 7 | 8 | 9 " << endl;
+
+		try
+		{
+			cout << *whoPlaying->playerName + "! Choose your position" << endl;
+			cout << " 1 | 2 | 3 " << endl;
+			cout << "---+---+---" << endl;
+			cout << " 4 | 5 | 6 " << endl;
+			cout << "---+---+---" << endl;
+			cout << " 7 | 8 | 9 " << endl;
 
 
-		cin >> inputPosition;
+			cin >> inputPosition;
+			
+			if (inputPosition < 1 || inputPosition>9)// Catch if input is not between 1 and 9
+			{
+				cout << "You have to choose between 1 and 9." << endl;
+				throw InputException();
+			}
 
-	} while (!(*positions[inputPosition-1]==' '));
+		}
+		catch (const std::exception&)//This allow to catch other exception including non integer input
+		{
+			cout << inputPosition << endl;
+			cout << "Input is invalid!!! Game will exit..." << endl;
+			exit(0);
+		}
+
+
+	} while (!(*positions[inputPosition-1]==' '));// If player choose a square that has already been chosen
 
 	choosePosition(inputPosition, *whoPlaying->playerSymbol);
 }
 
+//Display the current game board
 void Board::showBoard() {
 
 	printf(" %c | %c | %c \n", *upLeft, *upMiddle, *upRight);
@@ -48,6 +76,7 @@ void Board::showBoard() {
 
 }
 
+//Modify the position with the symbol of the player
 void Board::choosePosition(int position, char player) {
 
 	*(positions[position - 1]) = player;
