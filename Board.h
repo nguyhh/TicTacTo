@@ -20,6 +20,7 @@ public:
 	void showBoard();
 	void choosePosition(int, char);
 	bool checkWin();
+	bool checkDraw();
 
 
 

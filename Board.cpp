@@ -83,14 +83,29 @@ void Board::choosePosition(int position, char player) {
 	showBoard();
 }
 
+//Method to check if there is a winner
 bool Board::checkWin() {
-	return((*upLeft !=' ' && *upLeft== *upMiddle && *upLeft == *upRight ) ||//check top
+	return((*upLeft != ' ' && *upLeft == *upMiddle && *upLeft == *upRight) ||//check top
 		(*center != ' ' && *midLeft == *center && *center == *midRight) ||//check center
-		(*bottomLeft != ' ' && *bottomLeft == *bottomMid && *bottomLeft== *bottomRight) || //check bottom
-		(*upLeft !=' ' && *upLeft== *midLeft && *upLeft == *bottomLeft)|| // check Left vertical
-		(*upMiddle !=' ' && *upMiddle == *center && *upMiddle ==*bottomMid)||//check middle vertical
-		(*upRight != ' ' && *upRight == *midRight && *upRight == *bottomRight)||//check right vertical
+		(*bottomLeft != ' ' && *bottomLeft == *bottomMid && *bottomLeft == *bottomRight) || //check bottom
+		(*upLeft != ' ' && *upLeft == *midLeft && *upLeft == *bottomLeft) || // check Left vertical
+		(*upMiddle != ' ' && *upMiddle == *center && *upMiddle == *bottomMid) ||//check middle vertical
+		(*upRight != ' ' && *upRight == *midRight && *upRight == *bottomRight) ||//check right vertical
 		(*center != ' ' && *upLeft == *center && *center == *bottomRight) || //check diagonals
 		(*center != ' ' && *bottomLeft == *center && *center == *upRight));//check diagonals
 }
 
+//Method to check if there is a draw
+bool Board::checkDraw() {
+
+	return(*positions[0] != ' ' &&
+		*positions[1] != ' ' &&
+		*positions[2] != ' ' &&
+		*positions[3] != ' ' &&
+		*positions[4] != ' ' &&
+		*positions[5] != ' ' &&
+		*positions[6] != ' ' &&
+		*positions[7] != ' ' &&
+		*positions[8] != ' '
+		);
+}
